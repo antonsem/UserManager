@@ -1,0 +1,53 @@
+﻿<Window x:Class="UserManager.View.UserEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UserManager.View"
+        xmlns:extensions="clr-namespace:UserManager.Extensions"
+        xmlns:root="clr-namespace:UserManager"
+        mc:Ignorable="d"
+        Title="Edit User" Height="250" Width="200" WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        WindowStyle="SingleBorderWindow">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Margin="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Grid.Column="0" Text="ID: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="0" Grid.Column="1" x:Name="tbId" IsEnabled="False" Text="123123" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Margin="1"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Text="Name: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="tbName" Text="123123" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Margin="1"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Text="Email: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <TextBox Grid.Row="2" Grid.Column="1" x:Name="tbEmail" Text="123123" 
+                 HorizontalAlignment="Stretch" VerticalAlignment="Top" Width="auto" Margin="1"/>
+            <TextBlock Grid.Row="3" Grid.Column="0" Text="Gender: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <ComboBox Grid.Row="3" Grid.Column="1" x:Name="cbGender" Margin="1" HorizontalAlignment="Stretch" VerticalAlignment="Top"
+                      ItemsSource="{Binding Source={extensions:EnumBindingSourceExtension {x:Type root:Gender}}}"/>
+            <TextBlock Grid.Row="4" Grid.Column="0" Text="Status: " HorizontalAlignment="Right" VerticalAlignment="Top"/>
+            <CheckBox Grid.Row="4" Grid.Column="1" x:Name="cbStatus" HorizontalAlignment="Left" VerticalAlignment="top"
+                      Margin="1"/>
+        </Grid>
+
+        <StackPanel Grid.Row="1" VerticalAlignment="Top" Orientation="Horizontal" Margin="1" HorizontalAlignment="Center" Width="auto">
+            <Button Name="btnSve" Content="Save" Width="50" Height="30" Click="btnSave_Click" Margin="1"/>
+            <Button Name="btnDelete" Content="Delete" Width="50" Height="30" Click="btnDelete_Click" Margin="1"/>
+            <Button Name="btnCancel" Content="Cancel" Width="50" Height="30" Click="btnCancel_Click" Margin="1"/>
+        </StackPanel>
+    </Grid>
+</Window>
