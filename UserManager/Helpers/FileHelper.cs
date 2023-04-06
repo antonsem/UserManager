@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows;
 
-namespace UserManager
+namespace UserManager.Helpers
 {
     internal static class FileHelper
     {

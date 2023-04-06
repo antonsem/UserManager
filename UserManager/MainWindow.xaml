@@ -4,48 +4,46 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserManager"
+        xmlns:viewModel="clr-namespace:UserManager.ViewModel"
         mc:Ignorable="d"
-        Title="User Manager" Height="800" Width="600"
+        Title="User Manager" Height="600" Width="600"
         Loaded="Window_Loaded">
     <Grid>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="1"/>
                 <RowDefinition/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="155"/>
                 </Grid.ColumnDefinitions>
                 <TextBox Name="tbSearch" Width="auto" Height="30" Margin="10" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
-                <Button Name="btnSarch" Content="S" Width="20" Height="20" Margin="1, 0, 15, 0" HorizontalAlignment="Right"/>
+                <Button Name="btnSarch" Content="S" Width="20" Height="20" Margin="1, 0, 15, 0" HorizontalAlignment="Right" Click="btnSarch_Click"/>
                 <StackPanel Grid.Column="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="1" >
-                    <Button Name="btnExport" Content="Exp" Width="30" Height="30" Click="btnExport_Click" Margin="1"/>
-                    <Button Name="btnRefresh" Content="Ref" Width="30" Height="30" Click="btnRefresh_Click" Margin="1"/>
+                    <Button Name="btnPreviousPage" Content="Prev" Width="30" Height="30" Click="btnPreviousPage_Click" Margin="1"/>
+                    <TextBox Name="tbPage" Text="{Binding Path=Page, Mode=TwoWay}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Center" Width="30" Height="30" Margin="1"/>
+                    <Button Name="btnNextPage" Content="Next" Width="30" Height="30" Click="btnNextPage_Click" Margin="1"/>
+                    <Button Name="btnExport" Content="Export" Width="50" Height="30" Click="btnExport_Click" Margin="1"/>
                 </StackPanel>
             </Grid>
-            <DataGrid Name="dataGrid" Grid.Row="2" Margin="5" 
-                      ItemsSource="{Binding Path=Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+            <DataGrid Name="dataGrid" Grid.Row="1" Margin="5"
+                      ItemsSource="{Binding Users, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
                       AutoGenerateColumns="False" ColumnWidth="*" Width="auto"
                       CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True" AlternatingRowBackground="LightGray"
                       MouseDoubleClick="dataGrid_MouseDoubleClick">
 
-                <DataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem Header="Add" Click="Add_Click"/>
-                    </ContextMenu>
-                </DataGrid.ContextMenu>
-
                 <DataGrid.Columns>
-                    <DataGridTextColumn x:Name="Id" Header="Id" Width="50" Binding="{Binding Id, Mode=OneWay}"/>
-                    <DataGridTextColumn x:Name="Name" Header="Name" Width="*" Binding="{Binding Name}"/>
-                    <DataGridTextColumn x:Name="Email" Header="Email" Width="*" Binding="{Binding Email}"/>
-                    <DataGridTextColumn x:Name="Gender" Header="Gender" Width="75" Binding="{Binding Gender}"/>
+                    <DataGridTextColumn x:Name="Id" Header="Id" Width="50" Binding="{Binding id, Mode=OneWay}"/>
+                    <DataGridTextColumn x:Name="UserName" Header="Name" Width="*" Binding="{Binding name}"/>
+                    <DataGridTextColumn x:Name="Email" Header="Email" Width="*" Binding="{Binding email}"/>
+                    <DataGridTextColumn x:Name="Gender" Header="Gender" Width="75" Binding="{Binding gender}"/>
                     <DataGridCheckBoxColumn x:Name="Status" Header="Status" Width="50" Binding="{Binding IsActive}"/>
                 </DataGrid.Columns>
             </DataGrid>
+            <Button Grid.Row="2" Height="30" Margin="5" x:Name="btnCreate" Content=" + Create New User" Click="btnCreate_Click"/>
         </Grid>
     </Grid>
 </Window>

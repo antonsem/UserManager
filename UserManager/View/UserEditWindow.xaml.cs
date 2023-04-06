@@ -1,56 +1,61 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
+using UserManager.Extensions;
+using UserManager.Helpers;
+using UserManager.Model;
+using UserManager.ViewModel;
 
 namespace UserManager.View
 {
     public partial class UserEditWindow : Window
     {
-        private Action<User> OnEdit;
-        private Action<User> OnDelete;
+        private readonly UsersViewModel _usersViewModel;
+        private User User { get; set; }
 
-        public UserEditWindow(Window parentWindow, User user, Action<User> onEdit, Action<User> onDelete)
+        public UserEditWindow(Window parentWindow, User user, UsersViewModel userViewModel)
         {
             Owner = parentWindow;
-            OnEdit = onEdit;
-            OnDelete = onDelete;
+            _usersViewModel = userViewModel;
             InitializeComponent();
 
-            tbId.Text = user.Id.ToString();
-            tbName.Text = user.Name;
-            tbEmail.Text = user.Email;
-            cbGender.SelectedIndex = (int)user.UserGender;
-            cbStatus.IsChecked = user.IsActive;
+            userViewer.SetUser(user);
         }
 
         private async void btnSave_Click(object sender, RoutedEventArgs e)
         {
-            Opacity = 0.4;
-            IsEnabled = false;
+            this.SetInteractable(false);
 
-            var newUser = new User
+            var result = await UserHelper.UpdateUser(ApiHelper.Client, userViewer.GetUser());
+
+            if (result.Success && result.Request != null)
             {
-                Id = int.Parse(tbId.Text),
-                Name = tbName.Text,
-                Email = tbEmail.Text,
-                UserGender = (Gender)cbGender.SelectedIndex,
-                IsActive = cbStatus.IsChecked ?? false
-            };
-
-            var result = await UserHelper.UpdateUser(ApiHelper.Client, newUser);
-
-            if (result != null)
+                _usersViewModel.EditUser(result.Request);
+            }
+            else
             {
-                OnEdit?.Invoke(result);
+                MessageBox.Show($"Cannot update user!\n{result.ResponsePhrase}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            Opacity = 1;
-            IsEnabled = true;
+            this.SetInteractable(true);
             Close();
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            this.SetInteractable(false);
 
+            var result = await UserHelper.DeleteUser(ApiHelper.Client, userViewer.GetUser());
+
+            if (result.Success && result.Request != null)
+            {
+                _usersViewModel.DeleteUser(result.Request);
+            }
+            else
+            {
+                MessageBox.Show($"Cannot delete user!\n{result.ResponsePhrase}", "ERROR", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            this.SetInteractable(true);
+            Close();
         }
 
         private void btnCancel_Click(object sender, RoutedEventArgs e)

@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 
-namespace UserManager
+namespace UserManager.Model
 {
     public enum Gender
     {
@@ -16,15 +15,15 @@ namespace UserManager
         private const string MALE = "male";
         private const string FEMALE = "female";
 
-        public int Id { get; set; }
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? Gender
+        public int id { get; set; }
+        public string? name { get; set; }
+        public string? email { get; set; }
+        public string? gender
         {
-            get => UserGender == UserManager.Gender.Male ? MALE : FEMALE;
-            set => UserGender = value == MALE ? UserManager.Gender.Male : UserManager.Gender.Female;
+            get => UserGender == Gender.Male ? MALE : FEMALE;
+            set => UserGender = value == MALE ? Gender.Male : Gender.Female;
         }
-        public string? Status
+        public string? status
         {
             get => IsActive ? ACTIVE : INACTIVE;
             set => IsActive = value == ACTIVE;
@@ -44,11 +43,11 @@ namespace UserManager
         {
             var user = new User
             {
-                Id = Id,
-                Name = Name,
-                Email = Email,
-                Gender = Gender,
-                Status = Status
+                id = id,
+                name = name,
+                email = email,
+                gender = gender,
+                status = status
             };
 
             return user;

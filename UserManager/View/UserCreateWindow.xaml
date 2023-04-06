@@ -1,25 +1,23 @@
-﻿<Window x:Class="UserManager.View.UserEditWindow"
+﻿<Window x:Class="UserManager.View.CreateUserWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UserManager.View"
-        xmlns:userControls="clr-namespace:UserManager.UserControls" d:DataContext="{d:DesignInstance Type=userControls:UserViewer}"
+        xmlns:controls="clr-namespace:UserManager.UserControls"
         mc:Ignorable="d"
-        Title="Edit User" Height="200" Width="250" WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Title="Create User" Height="200" Width="250" WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
         WindowStyle="SingleBorderWindow">
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-
-        <userControls:UserViewer Grid.Row="0" x:Name="userViewer"/>
+        <controls:UserViewer x:Name="userViewer"/>
 
         <StackPanel Grid.Row="1" VerticalAlignment="Center" Orientation="Horizontal" Margin="1" HorizontalAlignment="Center" Width="auto">
-            <Button Name="btnSve" Content="Save" Width="50" Height="30" Click="btnSave_Click" Margin="1"/>
-            <Button Name="btnDelete" Content="Delete" Width="50" Height="30" Click="btnDelete_Click" Margin="1"/>
-            <Button Name="btnCancel" Content="Cancel" Width="50" Height="30" Click="btnCancel_Click" Margin="1"/>
+            <Button Name="btnCreate" Content="Create" Width="50" Height="30" Margin="1" Click="btnCreate_Click"/>
+            <Button Name="btnCancel" Content="Cancel" Width="50" Height="30" Margin="1" Click="btnCancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>
